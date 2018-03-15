@@ -623,6 +623,8 @@ pub fn i2c_smbus_write_i2c_block_data(fd: RawFd, command: u8, value: &[u8]) -> i
 }
 
 pub fn i2c_smbus_block_process_call(fd: RawFd, command: u8, write: &[u8], read: &mut [u8]) -> io::Result<usize> {
+    assert!(read.len() <= I2C_SMBUS_BLOCK_MAX - 1);
+
     unsafe {
         let mut data = i2c_smbus_data::from_block(write);
         let mut ioctl = i2c_smbus_ioctl_data {
