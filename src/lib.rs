@@ -128,7 +128,7 @@ pub const I2C_FUNC_SMBUS_I2C_BLOCK: Functionality = Functionality::SMBUS_I2C_BLO
 
 pub const I2C_FUNC_SMBUS_EMUL: Functionality = Functionality::SMBUS_EMUL;
 
-/// i2c_smbus_xfer read or write markers
+/// `i2c_smbus_xfer` read or write markers
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]
 #[repr(u8)]
 pub enum SmbusReadWrite {
@@ -189,23 +189,23 @@ pub const I2C_SMBUS_BLOCK_MAX: usize = 32;
 /// group, it is followed by a STOP. Otherwise it is followed by the next
 /// `i2c_msg` transaction segment, beginning with a (repeated) START.
 ///
-/// Alternatively, when the adapter supports I2C_FUNC_PROTOCOL_MANGLING then
-/// passing certain @flags may have changed those standard protocol behaviors.
+/// Alternatively, when the adapter supports `I2C_FUNC_PROTOCOL_MANGLING` then
+/// passing certain `flags` may have changed those standard protocol behaviors.
 /// Those flags are only for use with broken/nonconforming slaves, and with
 /// adapters which are known to support the specific mangling options they
-/// need (one or more of `IGNORE_NAK`, `NO_RD_ACK`, `NOSTART`, and `REV_DIR_ADDR`).
+/// need (one or more of `IGNORE_NACK`, `NO_RD_ACK`, `NOSTART`, and `REV_DIR_ADDR`).
 pub struct i2c_msg {
     /// Slave address, either seven or ten bits.
     ///
     /// When this is a ten
-    /// bit address, `I2C_M_TEN` must be set in @flags and the adapter
+    /// bit address, `I2C_M_TEN` must be set in `flags` and the adapter
     /// must support `I2C_FUNC_10BIT_ADDR`.
     pub addr: u16,
     /// `I2C_M_RD` is handled by all adapters.
     ///
     /// No other flags may be
     /// provided unless the adapter exported the relevant `I2C_FUNC_*`
-    /// flags through `i2c_check_functionality()`.
+    /// flags through `i2c_get_functionality()`.
     pub flags: Flags,
     /// Number of data bytes in `buf` being read from or written to the
     /// I2C slave address.
@@ -222,7 +222,7 @@ pub struct i2c_msg {
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug)]
-/// This is the structure as used in the I2C_RDWR ioctl call
+/// This is the structure as used in the `I2C_RDWR` ioctl call
 pub struct i2c_rdwr_ioctl_data {
     /// ptr to array of simple messages
     pub msgs: *mut i2c_msg,
@@ -415,7 +415,7 @@ pub fn i2c_set_slave_address_10bit(fd: RawFd, tenbit: bool) -> io::Result<()> {
 
 /// `I2C_FUNCS`
 #[inline]
-pub fn i2c_check_functionality(fd: RawFd) -> io::Result<Functionality> {
+pub fn i2c_get_functionality(fd: RawFd) -> io::Result<Functionality> {
     unsafe {
         let mut res = 0;
         ioctls::i2c_funcs(fd, &mut res)
@@ -430,6 +430,16 @@ pub fn i2c_pec(fd: RawFd, pec: bool) -> io::Result<()> {
         ioctls::i2c_pec(fd, if pec { 1 } else { 0 })
             .map_err(nixerr).map(drop)
     }
+}
+
+/// `I2C_RDWR`
+#[inline]
+pub unsafe fn i2c_rdwr(fd: RawFd, msgs: &mut [i2c_msg]) -> io::Result<()> {
+    let mut data = i2c_rdwr_ioctl_data {
+        msgs: msgs.as_mut_ptr(),
+        nmsgs: msgs.len() as _,
+    };
+    ioctls::i2c_rdwr(fd, &mut data).map_err(nixerr).map(drop)
 }
 
 /// `I2C_SMBUS`
@@ -628,12 +638,4 @@ pub fn i2c_smbus_block_process_call(fd: RawFd, command: u8, write: &[u8], read: 
                 block.len()
             })
     }
-}
-
-pub unsafe fn i2c_rdwr(fd: RawFd, msgs: &mut [i2c_msg]) -> io::Result<()> {
-    let mut data = i2c_rdwr_ioctl_data {
-        msgs: msgs.as_mut_ptr(),
-        nmsgs: msgs.len() as _,
-    };
-    ioctls::i2c_rdwr(fd, &mut data).map_err(nixerr).map(drop)
 }
