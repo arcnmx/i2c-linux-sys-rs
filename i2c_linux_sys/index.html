@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `i2c_linux_sys` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, i2c_linux_sys">
+
+    <title>i2c_linux_sys - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Crate i2c_linux_sys</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'i2c_linux_sys', ty: 'mod', relpath: '../'};</script></div>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Crate <a class="mod" href=''>i2c_linux_sys</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#2-639' title='goto source code'>[src]</a></span></h1>
+<h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="mod" href="ioctls/index.html"
+                                  title='mod i2c_linux_sys::ioctls'>ioctls</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Flags.html"
+                                  title='struct i2c_linux_sys::Flags'>Flags</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.Functionality.html"
+                                  title='struct i2c_linux_sys::Functionality'>Functionality</a></td>
+                           <td class='docblock-short'>
+                                <p>To determine what functionality is present</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.i2c_msg.html"
+                                  title='struct i2c_linux_sys::i2c_msg'>i2c_msg</a></td>
+                           <td class='docblock-short'>
+                                <p>an I2C transaction segment beginning with START</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.i2c_rdwr_ioctl_data.html"
+                                  title='struct i2c_linux_sys::i2c_rdwr_ioctl_data'>i2c_rdwr_ioctl_data</a></td>
+                           <td class='docblock-short'>
+                                <p>This is the structure as used in the I2C_RDWR ioctl call</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.i2c_smbus_data.html"
+                                  title='struct i2c_linux_sys::i2c_smbus_data'>i2c_smbus_data</a></td>
+                           <td class='docblock-short'>
+                                <p>Data for SMBus Messages</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="struct" href="struct.i2c_smbus_ioctl_data.html"
+                                  title='struct i2c_linux_sys::i2c_smbus_ioctl_data'>i2c_smbus_ioctl_data</a></td>
+                           <td class='docblock-short'>
+                                <p>This is the structure as used in the I2C_SMBUS ioctl call</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.SmbusReadWrite.html"
+                                  title='enum i2c_linux_sys::SmbusReadWrite'>SmbusReadWrite</a></td>
+                           <td class='docblock-short'>
+                                <p>i2c_smbus_xfer read or write markers</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="enum" href="enum.SmbusTransaction.html"
+                                  title='enum i2c_linux_sys::SmbusTransaction'>SmbusTransaction</a></td>
+                           <td class='docblock-short'>
+                                <p>SMBus transaction types (size parameter in the above functions)</p>
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNCS.html"
+                                  title='constant i2c_linux_sys::I2C_FUNCS'>I2C_FUNCS</a></td>
+                           <td class='docblock-short'>
+                                <p>Get the adapter functionality mask</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_10BIT_ADDR.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_10BIT_ADDR'>I2C_FUNC_10BIT_ADDR</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_I2C.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_I2C'>I2C_FUNC_I2C</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_NOSTART.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_NOSTART'>I2C_FUNC_NOSTART</a></td>
+                           <td class='docblock-short'>
+                                <p>I2C_M_NOSTART</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_PROTOCOL_MANGLING.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_PROTOCOL_MANGLING'>I2C_FUNC_PROTOCOL_MANGLING</a></td>
+                           <td class='docblock-short'>
+                                <p>I2C_M_IGNORE_NAK etc.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SLAVE.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SLAVE'>I2C_FUNC_SLAVE</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_BLOCK_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_BLOCK_DATA'>I2C_FUNC_SMBUS_BLOCK_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_BLOCK_PROC_CALL.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_BLOCK_PROC_CALL'>I2C_FUNC_SMBUS_BLOCK_PROC_CALL</a></td>
+                           <td class='docblock-short'>
+                                <p>SMBus 2.0</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_BYTE.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_BYTE'>I2C_FUNC_SMBUS_BYTE</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_BYTE_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_BYTE_DATA'>I2C_FUNC_SMBUS_BYTE_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_EMUL.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_EMUL'>I2C_FUNC_SMBUS_EMUL</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_HOST_NOTIFY.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_HOST_NOTIFY'>I2C_FUNC_SMBUS_HOST_NOTIFY</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_I2C_BLOCK.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_I2C_BLOCK'>I2C_FUNC_SMBUS_I2C_BLOCK</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_PEC.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_PEC'>I2C_FUNC_SMBUS_PEC</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_PROC_CALL.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_PROC_CALL'>I2C_FUNC_SMBUS_PROC_CALL</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_QUICK.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_QUICK'>I2C_FUNC_SMBUS_QUICK</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_READ_BLOCK_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_READ_BLOCK_DATA'>I2C_FUNC_SMBUS_READ_BLOCK_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_READ_BYTE.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_READ_BYTE'>I2C_FUNC_SMBUS_READ_BYTE</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_READ_BYTE_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_READ_BYTE_DATA'>I2C_FUNC_SMBUS_READ_BYTE_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_READ_I2C_BLOCK.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_READ_I2C_BLOCK'>I2C_FUNC_SMBUS_READ_I2C_BLOCK</a></td>
+                           <td class='docblock-short'>
+                                <p>I2C-like block xfer</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_READ_WORD_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_READ_WORD_DATA'>I2C_FUNC_SMBUS_READ_WORD_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_WORD_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_WORD_DATA'>I2C_FUNC_SMBUS_WORD_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_WRITE_BLOCK_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_WRITE_BLOCK_DATA'>I2C_FUNC_SMBUS_WRITE_BLOCK_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_WRITE_BYTE.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_WRITE_BYTE'>I2C_FUNC_SMBUS_WRITE_BYTE</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_WRITE_BYTE_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_WRITE_BYTE_DATA'>I2C_FUNC_SMBUS_WRITE_BYTE_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_WRITE_I2C_BLOCK.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_WRITE_I2C_BLOCK'>I2C_FUNC_SMBUS_WRITE_I2C_BLOCK</a></td>
+                           <td class='docblock-short'>
+                                <p>w/ 1-byte reg. addr.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_FUNC_SMBUS_WRITE_WORD_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_FUNC_SMBUS_WRITE_WORD_DATA'>I2C_FUNC_SMBUS_WRITE_WORD_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_IGNORE_NAK.html"
+                                  title='constant i2c_linux_sys::I2C_M_IGNORE_NAK'>I2C_M_IGNORE_NAK</a></td>
+                           <td class='docblock-short'>
+                                <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_NOSTART.html"
+                                  title='constant i2c_linux_sys::I2C_M_NOSTART'>I2C_M_NOSTART</a></td>
+                           <td class='docblock-short'>
+                                <p>I2C_FUNC_NOSTART</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_NO_RD_ACK.html"
+                                  title='constant i2c_linux_sys::I2C_M_NO_RD_ACK'>I2C_M_NO_RD_ACK</a></td>
+                           <td class='docblock-short'>
+                                <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_RD.html"
+                                  title='constant i2c_linux_sys::I2C_M_RD'>I2C_M_RD</a></td>
+                           <td class='docblock-short'>
+                                <p>read data, from slave to master</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_RECV_LEN.html"
+                                  title='constant i2c_linux_sys::I2C_M_RECV_LEN'>I2C_M_RECV_LEN</a></td>
+                           <td class='docblock-short'>
+                                <p>length will be first received byte</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_REV_DIR_ADDR.html"
+                                  title='constant i2c_linux_sys::I2C_M_REV_DIR_ADDR'>I2C_M_REV_DIR_ADDR</a></td>
+                           <td class='docblock-short'>
+                                <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_STOP.html"
+                                  title='constant i2c_linux_sys::I2C_M_STOP'>I2C_M_STOP</a></td>
+                           <td class='docblock-short'>
+                                <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_M_TEN.html"
+                                  title='constant i2c_linux_sys::I2C_M_TEN'>I2C_M_TEN</a></td>
+                           <td class='docblock-short'>
+                                <p>this is a ten bit chip address</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_PEC.html"
+                                  title='constant i2c_linux_sys::I2C_PEC'>I2C_PEC</a></td>
+                           <td class='docblock-short'>
+                                <p>!= 0 to use PEC with SMBus</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_RDWR.html"
+                                  title='constant i2c_linux_sys::I2C_RDWR'>I2C_RDWR</a></td>
+                           <td class='docblock-short'>
+                                <p>Combined R/W transfer (one STOP only)</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_RDWR_IOCTL_MAX_MSGS.html"
+                                  title='constant i2c_linux_sys::I2C_RDWR_IOCTL_MAX_MSGS'>I2C_RDWR_IOCTL_MAX_MSGS</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_RETRIES.html"
+                                  title='constant i2c_linux_sys::I2C_RETRIES'>I2C_RETRIES</a></td>
+                           <td class='docblock-short'>
+                                <p>number of times a device address should be polled when not acknowledging</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SLAVE.html"
+                                  title='constant i2c_linux_sys::I2C_SLAVE'>I2C_SLAVE</a></td>
+                           <td class='docblock-short'>
+                                <p>Use this slave address</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SLAVE_FORCE.html"
+                                  title='constant i2c_linux_sys::I2C_SLAVE_FORCE'>I2C_SLAVE_FORCE</a></td>
+                           <td class='docblock-short'>
+                                <p>Use this slave address, even if it is already in use by a driver!</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS'>I2C_SMBUS</a></td>
+                           <td class='docblock-short'>
+                                <p>SMBus transfer</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_BLOCK_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_BLOCK_DATA'>I2C_SMBUS_BLOCK_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_BLOCK_MAX.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_BLOCK_MAX'>I2C_SMBUS_BLOCK_MAX</a></td>
+                           <td class='docblock-short'>
+                                <p>As specified in SMBus standard</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_BLOCK_PROC_CALL.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_BLOCK_PROC_CALL'>I2C_SMBUS_BLOCK_PROC_CALL</a></td>
+                           <td class='docblock-short'>
+                                <p>SMBus 2.0</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_BYTE.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_BYTE'>I2C_SMBUS_BYTE</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_BYTE_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_BYTE_DATA'>I2C_SMBUS_BYTE_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_I2C_BLOCK_BROKEN.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_I2C_BLOCK_BROKEN'>I2C_SMBUS_I2C_BLOCK_BROKEN</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_I2C_BLOCK_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_I2C_BLOCK_DATA'>I2C_SMBUS_I2C_BLOCK_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_PROC_CALL.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_PROC_CALL'>I2C_SMBUS_PROC_CALL</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_QUICK.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_QUICK'>I2C_SMBUS_QUICK</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_READ.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_READ'>I2C_SMBUS_READ</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_WORD_DATA.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_WORD_DATA'>I2C_SMBUS_WORD_DATA</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_SMBUS_WRITE.html"
+                                  title='constant i2c_linux_sys::I2C_SMBUS_WRITE'>I2C_SMBUS_WRITE</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_TENBIT.html"
+                                  title='constant i2c_linux_sys::I2C_TENBIT'>I2C_TENBIT</a></td>
+                           <td class='docblock-short'>
+                                <p>0 for 7 bit addrs, != 0 for 10 bit</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="constant" href="constant.I2C_TIMEOUT.html"
+                                  title='constant i2c_linux_sys::I2C_TIMEOUT'>I2C_TIMEOUT</a></td>
+                           <td class='docblock-short'>
+                                <p>set timeout in units of 10 ms</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_check_functionality.html"
+                                  title='fn i2c_linux_sys::i2c_check_functionality'>i2c_check_functionality</a></td>
+                           <td class='docblock-short'>
+                                <p><code>I2C_FUNCS</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_pec.html"
+                                  title='fn i2c_linux_sys::i2c_pec'>i2c_pec</a></td>
+                           <td class='docblock-short'>
+                                <p><code>I2C_PEC</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_rdwr.html"
+                                  title='fn i2c_linux_sys::i2c_rdwr'>i2c_rdwr</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_set_retries.html"
+                                  title='fn i2c_linux_sys::i2c_set_retries'>i2c_set_retries</a></td>
+                           <td class='docblock-short'>
+                                <p><code>I2C_RETRIES</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_set_slave_address.html"
+                                  title='fn i2c_linux_sys::i2c_set_slave_address'>i2c_set_slave_address</a></td>
+                           <td class='docblock-short'>
+                                <p><code>I2C_SLAVE</code> and <code>I2C_SLAVE_FORCE</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_set_slave_address_10bit.html"
+                                  title='fn i2c_linux_sys::i2c_set_slave_address_10bit'>i2c_set_slave_address_10bit</a></td>
+                           <td class='docblock-short'>
+                                <p><code>I2C_TENBIT</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_set_timeout_ms.html"
+                                  title='fn i2c_linux_sys::i2c_set_timeout_ms'>i2c_set_timeout_ms</a></td>
+                           <td class='docblock-short'>
+                                <p><code>I2C_TIMEOUT</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus.html"
+                                  title='fn i2c_linux_sys::i2c_smbus'>i2c_smbus</a><a title='unsafe function' href='#'><sup>⚠</sup></a></td>
+                           <td class='docblock-short'>
+                                <p><code>I2C_SMBUS</code></p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_block_process_call.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_block_process_call'>i2c_smbus_block_process_call</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_process_call.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_process_call'>i2c_smbus_process_call</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_read_block_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_read_block_data'>i2c_smbus_read_block_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_read_byte.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_read_byte'>i2c_smbus_read_byte</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_read_byte_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_read_byte_data'>i2c_smbus_read_byte_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_read_i2c_block_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_read_i2c_block_data'>i2c_smbus_read_i2c_block_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_read_word_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_read_word_data'>i2c_smbus_read_word_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_write_block_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_write_block_data'>i2c_smbus_write_block_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_write_byte.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_write_byte'>i2c_smbus_write_byte</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_write_byte_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_write_byte_data'>i2c_smbus_write_byte_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_write_i2c_block_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_write_i2c_block_data'>i2c_smbus_write_i2c_block_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_write_quick.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_write_quick'>i2c_smbus_write_quick</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.i2c_smbus_write_word_data.html"
+                                  title='fn i2c_linux_sys::i2c_smbus_write_word_data'>i2c_smbus_write_word_data</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>↑</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>↓</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "i2c_linux_sys";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
