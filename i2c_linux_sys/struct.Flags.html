@@ -57,35 +57,35 @@
                 <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'></span></h3>
 <div class='impl-items'><h4 id='associatedconstant.RD' class="associatedconstant"><span id='RD.v' class='invisible'><code>pub const <a href='#associatedconstant.RD' class="constant"><b>RD</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">RD</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">1</span>,}</pre>
+<span class="ident">RD</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_RD</span>,}</pre>
 <p>read data, from slave to master</p>
 </div><h4 id='associatedconstant.TEN' class="associatedconstant"><span id='TEN.v' class='invisible'><code>pub const <a href='#associatedconstant.TEN' class="constant"><b>TEN</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">TEN</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">16</span>,}</pre>
+<span class="ident">TEN</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_TEN</span>,}</pre>
 <p>this is a ten bit chip address</p>
 </div><h4 id='associatedconstant.RECV_LEN' class="associatedconstant"><span id='RECV_LEN.v' class='invisible'><code>pub const <a href='#associatedconstant.RECV_LEN' class="constant"><b>RECV_LEN</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">RECV_LEN</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">1024</span>,}</pre>
+<span class="ident">RECV_LEN</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_RECV_LEN</span>,}</pre>
 <p>length will be first received byte</p>
 </div><h4 id='associatedconstant.NO_RD_ACK' class="associatedconstant"><span id='NO_RD_ACK.v' class='invisible'><code>pub const <a href='#associatedconstant.NO_RD_ACK' class="constant"><b>NO_RD_ACK</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">NO_RD_ACK</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">2048</span>,}</pre>
+<span class="ident">NO_RD_ACK</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_NO_RD_ACK</span>,}</pre>
 <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
 </div><h4 id='associatedconstant.IGNORE_NACK' class="associatedconstant"><span id='IGNORE_NACK.v' class='invisible'><code>pub const <a href='#associatedconstant.IGNORE_NACK' class="constant"><b>IGNORE_NACK</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">IGNORE_NACK</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">4096</span>,}</pre>
+<span class="ident">IGNORE_NACK</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_IGNORE_NAK</span>,}</pre>
 <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
 </div><h4 id='associatedconstant.REV_DIR_ADDR' class="associatedconstant"><span id='REV_DIR_ADDR.v' class='invisible'><code>pub const <a href='#associatedconstant.REV_DIR_ADDR' class="constant"><b>REV_DIR_ADDR</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">REV_DIR_ADDR</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">8192</span>,}</pre>
+<span class="ident">REV_DIR_ADDR</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_REV_DIR_ADDR</span>,}</pre>
 <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
 </div><h4 id='associatedconstant.NOSTART' class="associatedconstant"><span id='NOSTART.v' class='invisible'><code>pub const <a href='#associatedconstant.NOSTART' class="constant"><b>NOSTART</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">NOSTART</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">16384</span>,}</pre>
+<span class="ident">NOSTART</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_NOSTART</span>,}</pre>
 <p>I2C_FUNC_NOSTART</p>
 </div><h4 id='associatedconstant.STOP' class="associatedconstant"><span id='STOP.v' class='invisible'><code>pub const <a href='#associatedconstant.STOP' class="constant"><b>STOP</b></a>: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><pre class="rust ">
-<span class="ident">STOP</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="number">32768</span>,}</pre>
+<span class="ident">STOP</span>: <span class="ident">Flags</span> <span class="op">=</span> <span class="ident">Flags</span>{<span class="ident">bits</span>: <span class="ident">I2C_M_STOP</span>,}</pre>
 <p>if I2C_FUNC_PROTOCOL_MANGLING</p>
 </div><h4 id='method.empty' class="method"><span id='empty.v' class='invisible'><code>pub fn <a href='#method.empty' class='fnname'>empty</a>() -&gt; <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code></span></h4>
 <div class='docblock'><p>Returns an empty set of flags.</p>

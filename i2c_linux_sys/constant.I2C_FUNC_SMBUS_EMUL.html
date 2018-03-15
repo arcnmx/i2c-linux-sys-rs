@@ -49,8 +49,11 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#129' title='goto source code'>[src]</a></span></h1>
-<pre class='rust const'>pub const I2C_FUNC_SMBUS_EMUL: <a class="struct" href="../i2c_linux_sys/struct.Functionality.html" title="struct i2c_linux_sys::Functionality">Functionality</a><code> = </code><code>&lt;Functionality&gt;::SMBUS_EMUL</code></pre></section>
+               </span><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#126-130' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>pub const I2C_FUNC_SMBUS_EMUL: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><code> = </code><code>I2C_FUNC_SMBUS_QUICK | I2C_FUNC_SMBUS_BYTE | I2C_FUNC_SMBUS_BYTE_DATA |
+    I2C_FUNC_SMBUS_WORD_DATA | I2C_FUNC_SMBUS_PROC_CALL |
+    I2C_FUNC_SMBUS_WRITE_BLOCK_DATA | I2C_FUNC_SMBUS_I2C_BLOCK |
+    I2C_FUNC_SMBUS_PEC</code></pre></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
