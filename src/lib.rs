@@ -28,7 +28,7 @@ bitflags! {
         /// if I2C_FUNC_PROTOCOL_MANGLING
         const REV_DIR_ADDR = I2C_M_REV_DIR_ADDR;
         /// I2C_FUNC_NOSTART
-        const NOSTART = I2C_M_NOSTART;
+        const NO_START = I2C_M_NOSTART;
         /// if I2C_FUNC_PROTOCOL_MANGLING
         const STOP = I2C_M_STOP;
     }
@@ -60,7 +60,7 @@ bitflags! {
         const PROTOCOL_MANGLING = I2C_FUNC_PROTOCOL_MANGLING;
         const SMBUS_PEC = I2C_FUNC_SMBUS_PEC;
         /// I2C_M_NOSTART
-        const NOSTART = I2C_FUNC_NOSTART;
+        const NO_START = I2C_FUNC_NOSTART;
         const SLAVE = I2C_FUNC_SLAVE;
         /// SMBus 2.0
         const SMBUS_BLOCK_PROC_CALL = I2C_FUNC_SMBUS_BLOCK_PROC_CALL;
