@@ -1,4 +1,4 @@
-# i2c-linux-sys-rs
+# i2c-linux-sys
 
 [![travis-badge][]][travis] [![release-badge][]][cargo] [![docs-badge][]][docs] [![license-badge][]][license]
 
