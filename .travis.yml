@@ -1,0 +1,36 @@
+language: rust
+rust:
+- stable
+sudo: false
+os:
+- linux
+cache:
+  directories:
+  - "$HOME/.cargo"
+  - target
+env:
+  matrix:
+  - CARGO_FEATURES=
+  global:
+  - CARGO_QUIET=
+  - CARGO_INCREMENTAL=0
+  - secure: RiuKul2IUzakByBvER6vMS2z6QGnQmKBAbkijFoqJCvaR+ujMgFUmepunmKMPl8iYc99TuW3NlO8R7YRzUaOFxiZBYIYmMd/qqms8akABLT8bENugfES+Fdasj1pEU5X8tjG0u5tJ2WuoyRFydTFPByTF+mxB/yi2hSJ3WpvMQ3n6hRc4fQAPpF+MRIhY55pDGIeay2ia6Dc9Bjw2CsDq1Ge2khN+AeMJYiiG6HV6nvkqIsvjwTfSufGOb+rAILCpfl4lPLHWROSyAwA1QC5cs/AObmcDcMuhcBlRSY3pt2Cqm4QuN23J0ZIVNhOmUihVZ4J5qNaCWm0Zy4oYgX1jSBwBajvYbdZZW+oop+ztmNYjW3ro0OlbGG/3XO1xNSPDToCI+83qXHMYsZd/4TYOV26pzadE6wJWJzsKf6wlJQ+E7wo+HolXSgTAmcsobirokPoNvojjmOGyTxdmiFfIAvw9ed6bEopTe05u/heTxjPXJ6aKV51pt+h5xwfTMoaL84pWwFty2yZBYOE2CmoUDOBLQBcPPTjnkkXkwFK8QOfNXVg8M8n0fK7qXuIhPYy5iJ8p1Pry5JRqY/xv0KNfygk9SldDETOa7Wxa69636+Rk/NrizoUFtX7mv6D7r82m1MVUJ4usvDlYUkdulnrMhX+qlIh1uF6rIlv+FXfo1I=
+  - secure: Xlf+ZXtA8rxqHbUvi6CZUun4jqsKi6QWilyyCjzvZfC9N+w0I60zFHocOiTFe45vWD4s34uE3tJkSkrvCEppzVXmyA3DpUbZKDsa4L/hBa8CJ/SgMrD4nHGt8bti8rI/uWVx7Qz+XXCi3VmO8gBV6+IyRoZktEKgYdn9DNNaLO8yvqW/G46Y6jEb6hq+xkCbUfI0oevJLdyhgG2G0t3shOAaW6uPDcWl0WNiv6VckMkubfjVAM0+JiOOPpsC9RLYLXrRL36Aidkf6knTaqh3ZsQWIZ6TZoRltieheI85ZHb6JK/sO3jD4PtCK3cZxZpOirKusGbAubDoH7Mnv41UCPwvy7GJ6X0kqNIfN0w6MXFKIvC5c0XFiVuDYBeH1siblc3t0TnOk8wGz+6xJQVkdHmycKqi+PubyqGV+NNv8nfJUNFTSfOUtBB/CrNmjMP84pTrkPfhFop3+GTDwnnAzmZub7l51l/ePTakLPdoJKWnwxEoxHbGriigejE9a6fuk+kvnnlzfs8FuPiMd+QygG9MwTvqF4jlSAA7ZO9J1ZK0rPTI76PcssPs+sSXpD7mQVYo9QIKDQRJ9abAT0NzGwLHDPIAUoJXz5wobErrzLczCEGRktFE2hO8tj8UgGb7DGatbyfhvjG1zQSITfhWuD5gbEYfEg9U46yy8nYmCdc=
+before_install:
+- curl -L https://github.com/arcnmx/ci/archive/0.2.tar.gz | tar -xzC $HOME && . $HOME/ci-0.2/src
+script:
+- cargo test
+- cargo build
+deploy:
+  provider: script
+  script: 'true'
+  on:
+    tags: true
+    all_branches: true
+    condition: "$TRAVIS_RUST_VERSION = stable"
+before_deploy:
+- cargo doc
+- cargo package
+after_deploy:
+- cargo pages-publish
+- cargo publish

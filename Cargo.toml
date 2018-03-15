@@ -1,0 +1,22 @@
+[package]
+name = "i2c-linux-sys"
+version = "0.0.1"
+authors = ["arcnmx"]
+
+description = "Linux i2c-dev ioctls"
+keywords = ["i2c", "i2c-dev", "i2cdev", "smbus"]
+
+documentation = "http://arcnmx.github.io/i2c-linux-sys-rs/i2c_linux_sys"
+repository = "https://github.com/arcnmx/i2c-linux-sys-rs"
+readme = "README.md"
+license = "MIT"
+
+[badges]
+travis-ci = { repository = "arcnmx/i2c-linux-sys-rs" }
+maintenance = { status = "passively-maintained" }
+
+[dependencies]
+libc = "^0.2.36"
+nix = "^0.10.0"
+bitflags = "^1.0.1"
+byteorder = "^1.2.1"
