@@ -683,6 +683,8 @@
 <span id="637">637</span>
 <span id="638">638</span>
 <span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
 </pre><pre class="rust ">
 <span class="comment">//#![deny(missing_docs)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;http://arcnmx.github.io/i2c-linux-sys-rs/&quot;</span>)]</span>
@@ -814,7 +816,7 @@
 
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">I2C_FUNC_SMBUS_EMUL</span>: <span class="ident">Functionality</span> <span class="op">=</span> <span class="ident">Functionality</span>::<span class="ident">SMBUS_EMUL</span>;
 
-<span class="doccomment">/// i2c_smbus_xfer read or write markers</span>
+<span class="doccomment">/// `i2c_smbus_xfer` read or write markers</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialOrd</span>, <span class="ident">Ord</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>, <span class="ident">Hash</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u8</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">SmbusReadWrite</span> {
@@ -875,23 +877,23 @@
 <span class="doccomment">/// group, it is followed by a STOP. Otherwise it is followed by the next</span>
 <span class="doccomment">/// `i2c_msg` transaction segment, beginning with a (repeated) START.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Alternatively, when the adapter supports I2C_FUNC_PROTOCOL_MANGLING then</span>
-<span class="doccomment">/// passing certain @flags may have changed those standard protocol behaviors.</span>
+<span class="doccomment">/// Alternatively, when the adapter supports `I2C_FUNC_PROTOCOL_MANGLING` then</span>
+<span class="doccomment">/// passing certain `flags` may have changed those standard protocol behaviors.</span>
 <span class="doccomment">/// Those flags are only for use with broken/nonconforming slaves, and with</span>
 <span class="doccomment">/// adapters which are known to support the specific mangling options they</span>
-<span class="doccomment">/// need (one or more of `IGNORE_NAK`, `NO_RD_ACK`, `NOSTART`, and `REV_DIR_ADDR`).</span>
+<span class="doccomment">/// need (one or more of `IGNORE_NACK`, `NO_RD_ACK`, `NOSTART`, and `REV_DIR_ADDR`).</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">i2c_msg</span> {
     <span class="doccomment">/// Slave address, either seven or ten bits.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// When this is a ten</span>
-    <span class="doccomment">/// bit address, `I2C_M_TEN` must be set in @flags and the adapter</span>
+    <span class="doccomment">/// bit address, `I2C_M_TEN` must be set in `flags` and the adapter</span>
     <span class="doccomment">/// must support `I2C_FUNC_10BIT_ADDR`.</span>
     <span class="kw">pub</span> <span class="ident">addr</span>: <span class="ident">u16</span>,
     <span class="doccomment">/// `I2C_M_RD` is handled by all adapters.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// No other flags may be</span>
     <span class="doccomment">/// provided unless the adapter exported the relevant `I2C_FUNC_*`</span>
-    <span class="doccomment">/// flags through `i2c_check_functionality()`.</span>
+    <span class="doccomment">/// flags through `i2c_get_functionality()`.</span>
     <span class="kw">pub</span> <span class="ident">flags</span>: <span class="ident">Flags</span>,
     <span class="doccomment">/// Number of data bytes in `buf` being read from or written to the</span>
     <span class="doccomment">/// I2C slave address.</span>
@@ -908,7 +910,7 @@
 
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
-<span class="doccomment">/// This is the structure as used in the I2C_RDWR ioctl call</span>
+<span class="doccomment">/// This is the structure as used in the `I2C_RDWR` ioctl call</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">i2c_rdwr_ioctl_data</span> {
     <span class="doccomment">/// ptr to array of simple messages</span>
     <span class="kw">pub</span> <span class="ident">msgs</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">i2c_msg</span>,
@@ -1101,7 +1103,7 @@
 
 <span class="doccomment">/// `I2C_FUNCS`</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">i2c_check_functionality</span>(<span class="ident">fd</span>: <span class="ident">RawFd</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Functionality</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">i2c_get_functionality</span>(<span class="ident">fd</span>: <span class="ident">RawFd</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Functionality</span><span class="op">&gt;</span> {
     <span class="kw">unsafe</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">res</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="ident">ioctls</span>::<span class="ident">i2c_funcs</span>(<span class="ident">fd</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">res</span>)
@@ -1116,6 +1118,16 @@
         <span class="ident">ioctls</span>::<span class="ident">i2c_pec</span>(<span class="ident">fd</span>, <span class="kw">if</span> <span class="ident">pec</span> { <span class="number">1</span> } <span class="kw">else</span> { <span class="number">0</span> })
             .<span class="ident">map_err</span>(<span class="ident">nixerr</span>).<span class="ident">map</span>(<span class="ident">drop</span>)
     }
+}
+
+<span class="doccomment">/// `I2C_RDWR`</span>
+<span class="attribute">#[<span class="ident">inline</span>]</span>
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">i2c_rdwr</span>(<span class="ident">fd</span>: <span class="ident">RawFd</span>, <span class="ident">msgs</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">i2c_msg</span>]) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">i2c_rdwr_ioctl_data</span> {
+        <span class="ident">msgs</span>: <span class="ident">msgs</span>.<span class="ident">as_mut_ptr</span>(),
+        <span class="ident">nmsgs</span>: <span class="ident">msgs</span>.<span class="ident">len</span>() <span class="kw">as</span> _,
+    };
+    <span class="ident">ioctls</span>::<span class="ident">i2c_rdwr</span>(<span class="ident">fd</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">data</span>).<span class="ident">map_err</span>(<span class="ident">nixerr</span>).<span class="ident">map</span>(<span class="ident">drop</span>)
 }
 
 <span class="doccomment">/// `I2C_SMBUS`</span>
@@ -1314,14 +1326,6 @@
                 <span class="ident">block</span>.<span class="ident">len</span>()
             })
     }
-}
-
-<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">i2c_rdwr</span>(<span class="ident">fd</span>: <span class="ident">RawFd</span>, <span class="ident">msgs</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">i2c_msg</span>]) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data</span> <span class="op">=</span> <span class="ident">i2c_rdwr_ioctl_data</span> {
-        <span class="ident">msgs</span>: <span class="ident">msgs</span>.<span class="ident">as_mut_ptr</span>(),
-        <span class="ident">nmsgs</span>: <span class="ident">msgs</span>.<span class="ident">len</span>() <span class="kw">as</span> _,
-    };
-    <span class="ident">ioctls</span>::<span class="ident">i2c_rdwr</span>(<span class="ident">fd</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">data</span>).<span class="ident">map_err</span>(<span class="ident">nixerr</span>).<span class="ident">map</span>(<span class="ident">drop</span>)
 }
 </pre>
 </section>

@@ -72,11 +72,11 @@ bytes have been transferred and ACKed. If this is the last message in a
 group, it is followed by a STOP. Otherwise it is followed by the next
 <code>i2c_msg</code> transaction segment, beginning with a (repeated) START.</p>
 
-<p>Alternatively, when the adapter supports I2C_FUNC_PROTOCOL_MANGLING then
-passing certain @flags may have changed those standard protocol behaviors.
+<p>Alternatively, when the adapter supports <code>I2C_FUNC_PROTOCOL_MANGLING</code> then
+passing certain <code>flags</code> may have changed those standard protocol behaviors.
 Those flags are only for use with broken/nonconforming slaves, and with
 adapters which are known to support the specific mangling options they
-need (one or more of <code>IGNORE_NAK</code>, <code>NO_RD_ACK</code>, <code>NOSTART</code>, and <code>REV_DIR_ADDR</code>).</p>
+need (one or more of <code>IGNORE_NACK</code>, <code>NO_RD_ACK</code>, <code>NOSTART</code>, and <code>REV_DIR_ADDR</code>).</p>
 </div><h2 id='fields' class='fields small-section-header'>
                        Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.addr" class="structfield small-section-header">
                            <a href="#structfield.addr" class="anchor field"></a>
@@ -85,7 +85,7 @@ need (one or more of <code>IGNORE_NAK</code>, <code>NO_RD_ACK</code>, <code>NOST
                            </span></span><div class='docblock'><p>Slave address, either seven or ten bits.</p>
 
 <p>When this is a ten
-bit address, <code>I2C_M_TEN</code> must be set in @flags and the adapter
+bit address, <code>I2C_M_TEN</code> must be set in <code>flags</code> and the adapter
 must support <code>I2C_FUNC_10BIT_ADDR</code>.</p>
 </div><span id="structfield.flags" class="structfield small-section-header">
                            <a href="#structfield.flags" class="anchor field"></a>
@@ -95,7 +95,7 @@ must support <code>I2C_FUNC_10BIT_ADDR</code>.</p>
 
 <p>No other flags may be
 provided unless the adapter exported the relevant <code>I2C_FUNC_*</code>
-flags through <code>i2c_check_functionality()</code>.</p>
+flags through <code>i2c_get_functionality()</code>.</p>
 </div><span id="structfield.len" class="structfield small-section-header">
                            <a href="#structfield.len" class="anchor field"></a>
                            <span id="len.v" class='invisible'>
