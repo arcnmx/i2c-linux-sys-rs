@@ -688,6 +688,10 @@
 <span id="642">642</span>
 <span id="643">643</span>
 <span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
 </pre><pre class="rust ">
 <span class="comment">//#![deny(missing_docs)]</span>
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">html_root_url</span> <span class="op">=</span> <span class="string">&quot;http://arcnmx.github.io/i2c-linux-sys-rs/&quot;</span>)]</span>
@@ -745,7 +749,11 @@
 <span class="macro">bitflags</span><span class="macro">!</span> {
     <span class="doccomment">/// To determine what functionality is present</span>
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Functionality</span>: <span class="ident">u32</span> {
+        <span class="doccomment">/// Plain i2c-level commands (`I2C_RDWR`)</span>
+        <span class="doccomment">///</span>
+        <span class="doccomment">/// Pure SMBus adapters typically can not do these.</span>
         <span class="kw">const</span> <span class="ident">I2C</span> <span class="op">=</span> <span class="ident">I2C_FUNC_I2C</span>;
+        <span class="doccomment">/// Handles the 10-bit address extensions</span>
         <span class="kw">const</span> <span class="ident">TENBIT_ADDR</span> <span class="op">=</span> <span class="ident">I2C_FUNC_10BIT_ADDR</span>;
         <span class="doccomment">/// I2C_M_IGNORE_NAK etc.</span>
         <span class="kw">const</span> <span class="ident">PROTOCOL_MANGLING</span> <span class="op">=</span> <span class="ident">I2C_FUNC_PROTOCOL_MANGLING</span>;
