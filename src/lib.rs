@@ -54,7 +54,11 @@ pub const I2C_M_STOP: u16 = 0x8000;
 bitflags! {
     /// To determine what functionality is present
     pub struct Functionality: u32 {
+        /// Plain i2c-level commands (`I2C_RDWR`)
+        ///
+        /// Pure SMBus adapters typically can not do these.
         const I2C = I2C_FUNC_I2C;
+        /// Handles the 10-bit address extensions
         const TENBIT_ADDR = I2C_FUNC_10BIT_ADDR;
         /// I2C_M_IGNORE_NAK etc.
         const PROTOCOL_MANGLING = I2C_FUNC_PROTOCOL_MANGLING;
