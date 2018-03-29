@@ -10,8 +10,11 @@
     <title>i2c_linux_sys::i2c_msg - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
     
 
     
@@ -33,6 +36,13 @@
         <p class='location'>Struct i2c_msg</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.addr">addr</a><a href="#structfield.flags">flags</a><a href="#structfield.len">len</a><a href="#structfield.buf">buf</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Copy">Copy</a><a href="#impl-Clone">Clone</a><a href="#impl-Debug">Debug</a></div></div><p class='location'><a href='index.html'>i2c_linux_sys</a></p><script>window.sidebarCurrent = {name: 'i2c_msg', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -49,7 +59,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#202-226' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#200-224' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'><div class="docblock attributes">#[repr(C)]
 </div>pub struct i2c_msg {
     pub addr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
@@ -57,12 +67,10 @@
     pub len: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,
     pub buf: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
 }</pre><div class='docblock'><p>an I2C transaction segment beginning with START</p>
-
 <p>An i2c_msg is the low level representation of one segment of an I2C
 transaction. It is visible to drivers in the <code>i2c_transfer()</code> procedure,
 to userspace from i2c-dev, and to I2C adapter drivers through the
 <code>i2c_adapter.master_xfer()</code> method.</p>
-
 <p>Except when I2C &quot;protocol mangling&quot; is used, all I2C adapters implement
 the standard rules for I2C transactions. Each transaction begins with a
 START. That is followed by the slave address, and a bit encoding read
@@ -71,7 +79,6 @@ with SMBus PEC. The transfer terminates with a NAK, or when all those
 bytes have been transferred and ACKed. If this is the last message in a
 group, it is followed by a STOP. Otherwise it is followed by the next
 <code>i2c_msg</code> transaction segment, beginning with a (repeated) START.</p>
-
 <p>Alternatively, when the adapter supports <code>I2C_FUNC_PROTOCOL_MANGLING</code> then
 passing certain <code>flags</code> may have changed those standard protocol behaviors.
 Those flags are only for use with broken/nonconforming slaves, and with
@@ -83,7 +90,6 @@ need (one or more of <code>IGNORE_NACK</code>, <code>NO_RD_ACK</code>, <code>NOS
                            <span id="addr.v" class='invisible'>
                            <code>addr: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code>
                            </span></span><div class='docblock'><p>Slave address, either seven or ten bits.</p>
-
 <p>When this is a ten
 bit address, <code>I2C_M_TEN</code> must be set in <code>flags</code> and the adapter
 must support <code>I2C_FUNC_10BIT_ADDR</code>.</p>
@@ -92,7 +98,6 @@ must support <code>I2C_FUNC_10BIT_ADDR</code>.</p>
                            <span id="flags.v" class='invisible'>
                            <code>flags: <a class="struct" href="../i2c_linux_sys/struct.Flags.html" title="struct i2c_linux_sys::Flags">Flags</a></code>
                            </span></span><div class='docblock'><p><code>I2C_M_RD</code> is handled by all adapters.</p>
-
 <p>No other flags may be
 provided unless the adapter exported the relevant <code>I2C_FUNC_*</code>
 flags through <code>i2c_get_functionality()</code>.</p>
@@ -102,7 +107,6 @@ flags through <code>i2c_get_functionality()</code>.</p>
                            <code>len: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code>
                            </span></span><div class='docblock'><p>Number of data bytes in <code>buf</code> being read from or written to the
 I2C slave address.</p>
-
 <p>For read transactions where <code>I2C_M_RECV_LEN</code>
 is set, the caller guarantees that this buffer can hold up to
 32 bytes in addition to the initial length byte sent by the
@@ -112,19 +116,19 @@ incremented by the number of block data bytes received.</p>
                            <a href="#structfield.buf" class="anchor field"></a>
                            <span id="buf.v" class='invisible'>
                            <code>buf: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a></code>
-                           </span></span><div class='docblock'><p>The buffer into which data is read, or from which it&#39;s written.</p>
+                           </span></span><div class='docblock'><p>The buffer into which data is read, or from which it's written.</p>
 </div>
             <h2 id='implementations' class='small-section-header'>
               Trait Implementations<a href='#implementations' class='anchor'></a>
             </h2>
-        <h3 id='impl-Copy' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code><a href='#impl-Copy' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#180' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#180' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#180' title='goto source code'>[src]</a></span></h4>
+        <h3 id='impl-Copy' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code><a href='#impl-Copy' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#178' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#178' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#178' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
 </div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
-</div></div><h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#180' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#180' title='goto source code'>[src]</a></span></h4>
+</div></div><h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../i2c_linux_sys/struct.i2c_msg.html" title="struct i2c_linux_sys::i2c_msg">i2c_msg</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#178' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/i2c_linux_sys/lib.rs.html#178' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -139,20 +143,22 @@ incremented by the number of block data bytes received.</p>
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 
