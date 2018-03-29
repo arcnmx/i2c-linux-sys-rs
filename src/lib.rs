@@ -2,8 +2,6 @@
 #![doc(html_root_url = "http://arcnmx.github.io/i2c-linux-sys-rs/")]
 
 #[macro_use]
-extern crate nix;
-#[macro_use]
 extern crate bitflags;
 extern crate byteorder;
 extern crate libc;
@@ -360,24 +358,53 @@ pub const I2C_SMBUS: u16 = 0x0720;
 pub const I2C_RDWR_IOCTL_MAX_MSGS: usize = 42;
 
 pub mod ioctls {
-    use libc::c_ulong;
+    use libc::{ioctl, c_int, c_ulong};
+    use std::os::unix::io::RawFd;
+    use std::io;
 
-    ioctl!(bad write_int i2c_retries with super::I2C_RETRIES);
-    ioctl!(bad write_int i2c_timeout with super::I2C_TIMEOUT);
-    ioctl!(bad write_int i2c_slave with super::I2C_SLAVE);
-    ioctl!(bad write_int i2c_slave_force with super::I2C_SLAVE_FORCE);
-    ioctl!(bad write_int i2c_tenbit with super::I2C_TENBIT);
-    ioctl!(bad readwrite i2c_funcs with super::I2C_FUNCS; c_ulong);
-    ioctl!(bad readwrite i2c_rdwr with super::I2C_RDWR; super::i2c_rdwr_ioctl_data);
-    ioctl!(bad write_int i2c_pec with super::I2C_PEC);
-    ioctl!(bad readwrite i2c_smbus with super::I2C_SMBUS; super::i2c_smbus_ioctl_data);
-}
+    #[inline]
+    fn ioctl_result(res: c_int) -> io::Result<c_int> {
+        if res == -1 {
+            Err(io::Error::last_os_error())
+        } else {
+            Ok(res)
+        }
+    }
 
-#[inline]
-fn nixerr(err: nix::Error) -> io::Error {
-    match err {
-        nix::Error::Sys(errno) => errno.into(),
-        _ => unreachable!(),
+    pub unsafe fn i2c_retries(fd: RawFd, value: c_int) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_RETRIES as _, value))
+    }
+
+    pub unsafe fn i2c_timeout(fd: RawFd, value: c_int) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_TIMEOUT as _, value))
+    }
+
+    pub unsafe fn i2c_slave(fd: RawFd, value: c_int) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_SLAVE as _, value))
+    }
+
+    pub unsafe fn i2c_slave_force(fd: RawFd, value: c_int) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_SLAVE_FORCE as _, value))
+    }
+
+    pub unsafe fn i2c_tenbit(fd: RawFd, value: c_int) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_TENBIT as _, value))
+    }
+
+    pub unsafe fn i2c_funcs(fd: RawFd, value: *mut c_ulong) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_FUNCS as _, value))
+    }
+
+    pub unsafe fn i2c_rdwr(fd: RawFd, value: *mut super::i2c_rdwr_ioctl_data) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_RDWR as _, value))
+    }
+
+    pub unsafe fn i2c_pec(fd: RawFd, value: c_int) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_PEC as _, value))
+    }
+
+    pub unsafe fn i2c_smbus(fd: RawFd, value: *mut super::i2c_smbus_ioctl_data) -> io::Result<c_int> {
+        ioctl_result(ioctl(fd, super::I2C_SMBUS as _, value))
     }
 }
 
@@ -385,7 +412,7 @@ fn nixerr(err: nix::Error) -> io::Error {
 #[inline]
 pub fn i2c_set_retries(fd: RawFd, value: usize) -> io::Result<()> {
     unsafe {
-        ioctls::i2c_retries(fd, value as _).map_err(nixerr).map(drop)
+        ioctls::i2c_retries(fd, value as _).map(drop)
     }
 }
 
@@ -393,7 +420,7 @@ pub fn i2c_set_retries(fd: RawFd, value: usize) -> io::Result<()> {
 #[inline]
 pub fn i2c_set_timeout_ms(fd: RawFd, value: usize) -> io::Result<()> {
     unsafe {
-        ioctls::i2c_timeout(fd, (value / 10) as _).map_err(nixerr).map(drop)
+        ioctls::i2c_timeout(fd, (value / 10) as _).map(drop)
     }
 }
 
@@ -405,7 +432,7 @@ pub fn i2c_set_slave_address(fd: RawFd, address: u16, force: bool) -> io::Result
             ioctls::i2c_slave(fd, address as _)
         } else {
             ioctls::i2c_slave_force(fd, address as _)
-        }.map_err(nixerr).map(drop)
+        }.map(drop)
     }
 }
 
@@ -413,8 +440,7 @@ pub fn i2c_set_slave_address(fd: RawFd, address: u16, force: bool) -> io::Result
 #[inline]
 pub fn i2c_set_slave_address_10bit(fd: RawFd, tenbit: bool) -> io::Result<()> {
     unsafe {
-        ioctls::i2c_tenbit(fd, if tenbit { 1 } else { 0 })
-            .map_err(nixerr).map(drop)
+        ioctls::i2c_tenbit(fd, if tenbit { 1 } else { 0 }).map(drop)
     }
 }
 
@@ -424,7 +450,7 @@ pub fn i2c_get_functionality(fd: RawFd) -> io::Result<Functionality> {
     unsafe {
         let mut res = 0;
         ioctls::i2c_funcs(fd, &mut res)
-            .map_err(nixerr).map(|_| Functionality::from_bits_truncate(res as _))
+            .map(|_| Functionality::from_bits_truncate(res as _))
     }
 }
 
@@ -432,8 +458,7 @@ pub fn i2c_get_functionality(fd: RawFd) -> io::Result<Functionality> {
 #[inline]
 pub fn i2c_pec(fd: RawFd, pec: bool) -> io::Result<()> {
     unsafe {
-        ioctls::i2c_pec(fd, if pec { 1 } else { 0 })
-            .map_err(nixerr).map(drop)
+        ioctls::i2c_pec(fd, if pec { 1 } else { 0 }).map(drop)
     }
 }
 
@@ -444,14 +469,13 @@ pub unsafe fn i2c_rdwr(fd: RawFd, msgs: &mut [i2c_msg]) -> io::Result<()> {
         msgs: msgs.as_mut_ptr(),
         nmsgs: msgs.len() as _,
     };
-    ioctls::i2c_rdwr(fd, &mut data).map_err(nixerr).map(drop)
+    ioctls::i2c_rdwr(fd, &mut data).map(drop)
 }
 
 /// `I2C_SMBUS`
 #[inline]
 pub unsafe fn i2c_smbus(fd: RawFd, data: &mut i2c_smbus_ioctl_data) -> io::Result<()> {
-    ioctls::i2c_smbus(fd, data)
-        .map_err(nixerr).map(drop)
+    ioctls::i2c_smbus(fd, data).map(drop)
 }
 
 pub fn i2c_smbus_write_quick(fd: RawFd, value: SmbusReadWrite) -> io::Result<()> {
