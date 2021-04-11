@@ -1,15 +1,12 @@
 //#![deny(missing_docs)]
 #![doc(html_root_url = "http://arcnmx.github.io/i2c-linux-sys-rs/")]
+#![cfg_attr(feature = "cargo-clippy", allow(clippy::missing_safety_doc))]
 
-#[macro_use]
-extern crate bitflags;
-extern crate byteorder;
-extern crate libc;
-
-use std::{fmt, io, ptr, mem, cmp};
-use std::os::unix::io::RawFd;
-use byteorder::{NativeEndian, ByteOrder};
+use bitflags::bitflags;
+use byteorder::{ByteOrder, NativeEndian};
 use libc::c_int;
+use std::os::unix::io::RawFd;
+use std::{cmp, fmt, io, mem, ptr};
 
 bitflags! {
     pub struct Flags: u16 {
@@ -120,16 +117,23 @@ pub const I2C_FUNC_SMBUS_WRITE_I2C_BLOCK: u32 = 0x08000000;
 pub const I2C_FUNC_SMBUS_HOST_NOTIFY: u32 = 0x10000000;
 
 pub const I2C_FUNC_SMBUS_BYTE: u32 = I2C_FUNC_SMBUS_READ_BYTE | I2C_FUNC_SMBUS_WRITE_BYTE;
-pub const I2C_FUNC_SMBUS_BYTE_DATA: u32 = I2C_FUNC_SMBUS_READ_BYTE_DATA | I2C_FUNC_SMBUS_WRITE_BYTE_DATA;
-pub const I2C_FUNC_SMBUS_WORD_DATA: u32 = I2C_FUNC_SMBUS_READ_WORD_DATA | I2C_FUNC_SMBUS_WRITE_WORD_DATA;
-pub const I2C_FUNC_SMBUS_BLOCK_DATA: u32 = I2C_FUNC_SMBUS_READ_BLOCK_DATA | I2C_FUNC_SMBUS_WRITE_BLOCK_DATA;
-pub const I2C_FUNC_SMBUS_I2C_BLOCK: u32 = I2C_FUNC_SMBUS_READ_I2C_BLOCK | I2C_FUNC_SMBUS_WRITE_I2C_BLOCK;
+pub const I2C_FUNC_SMBUS_BYTE_DATA: u32 =
+    I2C_FUNC_SMBUS_READ_BYTE_DATA | I2C_FUNC_SMBUS_WRITE_BYTE_DATA;
+pub const I2C_FUNC_SMBUS_WORD_DATA: u32 =
+    I2C_FUNC_SMBUS_READ_WORD_DATA | I2C_FUNC_SMBUS_WRITE_WORD_DATA;
+pub const I2C_FUNC_SMBUS_BLOCK_DATA: u32 =
+    I2C_FUNC_SMBUS_READ_BLOCK_DATA | I2C_FUNC_SMBUS_WRITE_BLOCK_DATA;
+pub const I2C_FUNC_SMBUS_I2C_BLOCK: u32 =
+    I2C_FUNC_SMBUS_READ_I2C_BLOCK | I2C_FUNC_SMBUS_WRITE_I2C_BLOCK;
 
-pub const I2C_FUNC_SMBUS_EMUL: u32 = I2C_FUNC_SMBUS_QUICK |
-    I2C_FUNC_SMBUS_BYTE | I2C_FUNC_SMBUS_BYTE_DATA | I2C_FUNC_SMBUS_WORD_DATA |
-    I2C_FUNC_SMBUS_PROC_CALL |
-    I2C_FUNC_SMBUS_WRITE_BLOCK_DATA | I2C_FUNC_SMBUS_I2C_BLOCK |
-    I2C_FUNC_SMBUS_PEC;
+pub const I2C_FUNC_SMBUS_EMUL: u32 = I2C_FUNC_SMBUS_QUICK
+    | I2C_FUNC_SMBUS_BYTE
+    | I2C_FUNC_SMBUS_BYTE_DATA
+    | I2C_FUNC_SMBUS_WORD_DATA
+    | I2C_FUNC_SMBUS_PROC_CALL
+    | I2C_FUNC_SMBUS_WRITE_BLOCK_DATA
+    | I2C_FUNC_SMBUS_I2C_BLOCK
+    | I2C_FUNC_SMBUS_PEC;
 
 /// `i2c_smbus_xfer` read or write markers
 #[derive(Copy, Clone, Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]
@@ -358,9 +362,9 @@ pub const I2C_SMBUS: u16 = 0x0720;
 pub const I2C_RDWR_IOCTL_MAX_MSGS: usize = 42;
 
 pub mod ioctls {
-    use libc::{ioctl, c_int, c_ulong};
-    use std::os::unix::io::RawFd;
+    use libc::{c_int, c_ulong, ioctl};
     use std::io;
+    use std::os::unix::io::RawFd;
 
     #[inline]
     fn ioctl_result(res: c_int) -> io::Result<c_int> {
@@ -403,7 +407,10 @@ pub mod ioctls {
         ioctl_result(ioctl(fd, super::I2C_PEC as _, value))
     }
 
-    pub unsafe fn i2c_smbus(fd: RawFd, value: *mut super::i2c_smbus_ioctl_data) -> io::Result<c_int> {
+    pub unsafe fn i2c_smbus(
+        fd: RawFd,
+        value: *mut super::i2c_smbus_ioctl_data,
+    ) -> io::Result<c_int> {
         ioctl_result(ioctl(fd, super::I2C_SMBUS as _, value))
     }
 }
@@ -411,17 +418,13 @@ pub mod ioctls {
 /// `I2C_RETRIES`
 #[inline]
 pub fn i2c_set_retries(fd: RawFd, value: usize) -> io::Result<()> {
-    unsafe {
-        ioctls::i2c_retries(fd, value as _).map(drop)
-    }
+    unsafe { ioctls::i2c_retries(fd, value as _).map(drop) }
 }
 
 /// `I2C_TIMEOUT`
 #[inline]
 pub fn i2c_set_timeout_ms(fd: RawFd, value: usize) -> io::Result<()> {
-    unsafe {
-        ioctls::i2c_timeout(fd, (value / 10) as _).map(drop)
-    }
+    unsafe { ioctls::i2c_timeout(fd, (value / 10) as _).map(drop) }
 }
 
 /// `I2C_SLAVE` and `I2C_SLAVE_FORCE`
@@ -432,16 +435,15 @@ pub fn i2c_set_slave_address(fd: RawFd, address: u16, force: bool) -> io::Result
             ioctls::i2c_slave(fd, address as _)
         } else {
             ioctls::i2c_slave_force(fd, address as _)
-        }.map(drop)
+        }
+        .map(drop)
     }
 }
 
 /// `I2C_TENBIT`
 #[inline]
 pub fn i2c_set_slave_address_10bit(fd: RawFd, tenbit: bool) -> io::Result<()> {
-    unsafe {
-        ioctls::i2c_tenbit(fd, if tenbit { 1 } else { 0 }).map(drop)
-    }
+    unsafe { ioctls::i2c_tenbit(fd, if tenbit { 1 } else { 0 }).map(drop) }
 }
 
 /// `I2C_FUNCS`
@@ -449,17 +451,14 @@ pub fn i2c_set_slave_address_10bit(fd: RawFd, tenbit: bool) -> io::Result<()> {
 pub fn i2c_get_functionality(fd: RawFd) -> io::Result<Functionality> {
     unsafe {
         let mut res = 0;
-        ioctls::i2c_funcs(fd, &mut res)
-            .map(|_| Functionality::from_bits_truncate(res as _))
+        ioctls::i2c_funcs(fd, &mut res).map(|_| Functionality::from_bits_truncate(res as _))
     }
 }
 
 /// `I2C_PEC`
 #[inline]
 pub fn i2c_pec(fd: RawFd, pec: bool) -> io::Result<()> {
-    unsafe {
-        ioctls::i2c_pec(fd, if pec { 1 } else { 0 }).map(drop)
-    }
+    unsafe { ioctls::i2c_pec(fd, if pec { 1 } else { 0 }).map(drop) }
 }
 
 /// `I2C_RDWR`
@@ -480,12 +479,15 @@ pub unsafe fn i2c_smbus(fd: RawFd, data: &mut i2c_smbus_ioctl_data) -> io::Resul
 
 pub fn i2c_smbus_write_quick(fd: RawFd, value: SmbusReadWrite) -> io::Result<()> {
     unsafe {
-        i2c_smbus(fd, &mut i2c_smbus_ioctl_data {
-            read_write: value,
-            command: 0,
-            size: SmbusTransaction::Quick,
-            data: ptr::null_mut(),
-        })
+        i2c_smbus(
+            fd,
+            &mut i2c_smbus_ioctl_data {
+                read_write: value,
+                command: 0,
+                size: SmbusTransaction::Quick,
+                data: ptr::null_mut(),
+            },
+        )
     }
 }
 
@@ -498,8 +500,7 @@ pub fn i2c_smbus_read_byte(fd: RawFd) -> io::Result<u8> {
             size: SmbusTransaction::Byte,
             data: &mut data,
         };
-        i2c_smbus(fd, &mut ioctl)
-            .map(|_| data.byte())
+        i2c_smbus(fd, &mut ioctl).map(|_| data.byte())
     }
 }
 
@@ -521,12 +522,11 @@ pub fn i2c_smbus_read_byte_data(fd: RawFd, command: u8) -> io::Result<u8> {
         let mut data = i2c_smbus_data::default();
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
+            command,
             size: SmbusTransaction::ByteData,
             data: &mut data,
         };
-        i2c_smbus(fd, &mut ioctl)
-            .map(|_| data.byte())
+        i2c_smbus(fd, &mut ioctl).map(|_| data.byte())
     }
 }
 
@@ -535,7 +535,7 @@ pub fn i2c_smbus_write_byte_data(fd: RawFd, command: u8, value: u8) -> io::Resul
         let mut data = i2c_smbus_data::from_byte(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::ByteData,
             data: &mut data,
         };
@@ -548,12 +548,11 @@ pub fn i2c_smbus_read_word_data(fd: RawFd, command: u8) -> io::Result<u16> {
         let mut data = i2c_smbus_data::default();
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
+            command,
             size: SmbusTransaction::WordData,
             data: &mut data,
         };
-        i2c_smbus(fd, &mut ioctl)
-            .map(|_| data.word())
+        i2c_smbus(fd, &mut ioctl).map(|_| data.word())
     }
 }
 
@@ -562,7 +561,7 @@ pub fn i2c_smbus_write_word_data(fd: RawFd, command: u8, value: u16) -> io::Resu
         let mut data = i2c_smbus_data::from_word(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::WordData,
             data: &mut data,
         };
@@ -575,12 +574,11 @@ pub fn i2c_smbus_process_call(fd: RawFd, command: u8, value: u16) -> io::Result<
         let mut data = i2c_smbus_data::from_word(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::ProcCall,
             data: &mut data,
         };
-        i2c_smbus(fd, &mut ioctl)
-            .map(|_| data.word())
+        i2c_smbus(fd, &mut ioctl).map(|_| data.word())
     }
 }
 
@@ -589,17 +587,18 @@ pub fn i2c_smbus_read_block_data(fd: RawFd, command: u8, value: &mut [u8]) -> io
         let mut data = i2c_smbus_data::default();
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
+            command,
             size: SmbusTransaction::BlockData,
             data: &mut data,
         };
-        i2c_smbus(fd, &mut ioctl)
-            .map(|_| {
-                let block = data.block().expect("kernel provided an invalid block length");
-                let len = cmp::min(block.len(), value.len());
-                value[..len].copy_from_slice(&block[..len]);
-                block.len()
-            })
+        i2c_smbus(fd, &mut ioctl).map(|_| {
+            let block = data
+                .block()
+                .expect("kernel provided an invalid block length");
+            let len = cmp::min(block.len(), value.len());
+            value[..len].copy_from_slice(&block[..len]);
+            block.len()
+        })
     }
 }
 
@@ -608,7 +607,7 @@ pub fn i2c_smbus_write_block_data(fd: RawFd, command: u8, value: &[u8]) -> io::R
         let mut data = i2c_smbus_data::from_block(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::BlockData,
             data: &mut data,
         };
@@ -616,24 +615,33 @@ pub fn i2c_smbus_write_block_data(fd: RawFd, command: u8, value: &[u8]) -> io::R
     }
 }
 
-pub fn i2c_smbus_read_i2c_block_data(fd: RawFd, command: u8, value: &mut [u8]) -> io::Result<usize> {
+pub fn i2c_smbus_read_i2c_block_data(
+    fd: RawFd,
+    command: u8,
+    value: &mut [u8],
+) -> io::Result<usize> {
     assert!(value.len() <= I2C_SMBUS_BLOCK_MAX);
 
     unsafe {
         let mut data = i2c_smbus_data::from_byte(value.len() as u8);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
-            size: if value.len() == I2C_SMBUS_BLOCK_MAX { SmbusTransaction::I2cBlockBroken } else { SmbusTransaction::I2cBlockData },
+            command,
+            size: if value.len() == I2C_SMBUS_BLOCK_MAX {
+                SmbusTransaction::I2cBlockBroken
+            } else {
+                SmbusTransaction::I2cBlockData
+            },
             data: &mut data,
         };
-        i2c_smbus(fd, &mut ioctl)
-            .map(|_| {
-                let block = data.block().expect("kernel provided an invalid block length");
-                let len = cmp::min(block.len(), value.len());
-                value[..len].copy_from_slice(&block[..len]);
-                block.len()
-            })
+        i2c_smbus(fd, &mut ioctl).map(|_| {
+            let block = data
+                .block()
+                .expect("kernel provided an invalid block length");
+            let len = cmp::min(block.len(), value.len());
+            value[..len].copy_from_slice(&block[..len]);
+            block.len()
+        })
     }
 }
 
@@ -642,7 +650,7 @@ pub fn i2c_smbus_write_i2c_block_data(fd: RawFd, command: u8, value: &[u8]) -> i
         let mut data = i2c_smbus_data::from_block(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::I2cBlockBroken,
             data: &mut data,
         };
@@ -650,23 +658,29 @@ pub fn i2c_smbus_write_i2c_block_data(fd: RawFd, command: u8, value: &[u8]) -> i
     }
 }
 
-pub fn i2c_smbus_block_process_call(fd: RawFd, command: u8, write: &[u8], read: &mut [u8]) -> io::Result<usize> {
-    assert!(read.len() <= I2C_SMBUS_BLOCK_MAX - 1);
+pub fn i2c_smbus_block_process_call(
+    fd: RawFd,
+    command: u8,
+    write: &[u8],
+    read: &mut [u8],
+) -> io::Result<usize> {
+    assert!(read.len() < I2C_SMBUS_BLOCK_MAX);
 
     unsafe {
         let mut data = i2c_smbus_data::from_block(write);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::BlockProcCall,
             data: &mut data,
         };
-        i2c_smbus(fd, &mut ioctl)
-            .map(|_| {
-                let block = data.block().expect("kernel provided an invalid block length");
-                let len = cmp::min(block.len(), read.len());
-                read[..len].copy_from_slice(&block[..len]);
-                block.len()
-            })
+        i2c_smbus(fd, &mut ioctl).map(|_| {
+            let block = data
+                .block()
+                .expect("kernel provided an invalid block length");
+            let len = cmp::min(block.len(), read.len());
+            read[..len].copy_from_slice(&block[..len]);
+            block.len()
+        })
     }
 }
