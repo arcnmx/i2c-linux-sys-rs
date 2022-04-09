@@ -505,12 +505,11 @@ pub fn i2c_smbus_read_byte(fd: RawFd) -> io::Result<u8> {
 
 pub fn i2c_smbus_write_byte(fd: RawFd, value: u8) -> io::Result<()> {
     unsafe {
-        let mut data = i2c_smbus_data::from_byte(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: 0,
+            command: value,
             size: SmbusTransaction::Byte,
-            data: &mut data,
+            data: ptr::null_mut(),
         };
         i2c_smbus(fd, &mut ioctl)
     }
