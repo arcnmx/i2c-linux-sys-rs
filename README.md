@@ -14,6 +14,6 @@ See the [documentation][docs] for up to date information.
 [release-badge]: https://img.shields.io/crates/v/i2c-linux-sys.svg?style=flat-square
 [cargo]: https://crates.io/crates/i2c-linux-sys
 [docs-badge]: https://img.shields.io/badge/API-docs-blue.svg?style=flat-square
-[docs]: http://arcnmx.github.io/i2c-linux-sys-rs/i2c_linux_sys/
+[docs]: https://docs.rs/i2c-linux-sys/*/i2c_linux_sys/
 [license-badge]: https://img.shields.io/badge/license-MIT-ff69b4.svg?style=flat-square
 [license]: https://github.com/arcnmx/i2c-linux-sys-rs/blob/master/COPYING

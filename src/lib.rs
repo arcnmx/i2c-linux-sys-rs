@@ -1,5 +1,5 @@
 //#![deny(missing_docs)]
-#![doc(html_root_url = "http://arcnmx.github.io/i2c-linux-sys-rs/")]
+#![doc(html_root_url = "https://docs.rs/i2c-linux-sys/0.2.1/")]
 
 #[macro_use]
 extern crate bitflags;
@@ -238,7 +238,7 @@ pub struct i2c_rdwr_ioctl_data {
 /// Data for SMBus Messages
 pub struct i2c_smbus_data {
     _alignment: [u16; 0],
-    /// block[0] is used for length and one more for user-space compatibility
+    /// `block[0]` is used for length and one more for user-space compatibility
     pub block: [u8; I2C_SMBUS_BLOCK_MAX + 2],
 }
 
