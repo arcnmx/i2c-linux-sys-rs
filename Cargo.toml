@@ -1,6 +1,6 @@
 [package]
 name = "i2c-linux-sys"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["arcnmx"]
 
 description = "Linux i2c-dev ioctls"
