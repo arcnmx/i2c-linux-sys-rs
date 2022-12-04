@@ -1,14 +1,10 @@
 //#![deny(missing_docs)]
 #![doc(html_root_url = "https://docs.rs/i2c-linux-sys/0.2.1/")]
 
-#[macro_use]
-extern crate bitflags;
-extern crate byteorder;
-extern crate libc;
-
 use std::{fmt, io, ptr, mem, cmp};
 use std::os::unix::io::RawFd;
 use byteorder::{NativeEndian, ByteOrder};
+use bitflags::bitflags;
 use libc::c_int;
 
 bitflags! {
@@ -520,7 +516,7 @@ pub fn i2c_smbus_read_byte_data(fd: RawFd, command: u8) -> io::Result<u8> {
         let mut data = i2c_smbus_data::default();
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
+            command,
             size: SmbusTransaction::ByteData,
             data: &mut data,
         };
@@ -534,7 +530,7 @@ pub fn i2c_smbus_write_byte_data(fd: RawFd, command: u8, value: u8) -> io::Resul
         let mut data = i2c_smbus_data::from_byte(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::ByteData,
             data: &mut data,
         };
@@ -547,7 +543,7 @@ pub fn i2c_smbus_read_word_data(fd: RawFd, command: u8) -> io::Result<u16> {
         let mut data = i2c_smbus_data::default();
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
+            command,
             size: SmbusTransaction::WordData,
             data: &mut data,
         };
@@ -561,7 +557,7 @@ pub fn i2c_smbus_write_word_data(fd: RawFd, command: u8, value: u16) -> io::Resu
         let mut data = i2c_smbus_data::from_word(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::WordData,
             data: &mut data,
         };
@@ -574,7 +570,7 @@ pub fn i2c_smbus_process_call(fd: RawFd, command: u8, value: u16) -> io::Result<
         let mut data = i2c_smbus_data::from_word(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::ProcCall,
             data: &mut data,
         };
@@ -588,7 +584,7 @@ pub fn i2c_smbus_read_block_data(fd: RawFd, command: u8, value: &mut [u8]) -> io
         let mut data = i2c_smbus_data::default();
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
+            command,
             size: SmbusTransaction::BlockData,
             data: &mut data,
         };
@@ -607,7 +603,7 @@ pub fn i2c_smbus_write_block_data(fd: RawFd, command: u8, value: &[u8]) -> io::R
         let mut data = i2c_smbus_data::from_block(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::BlockData,
             data: &mut data,
         };
@@ -622,7 +618,7 @@ pub fn i2c_smbus_read_i2c_block_data(fd: RawFd, command: u8, value: &mut [u8]) -
         let mut data = i2c_smbus_data::from_byte(value.len() as u8);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Read,
-            command: command,
+            command,
             size: if value.len() == I2C_SMBUS_BLOCK_MAX { SmbusTransaction::I2cBlockBroken } else { SmbusTransaction::I2cBlockData },
             data: &mut data,
         };
@@ -641,7 +637,7 @@ pub fn i2c_smbus_write_i2c_block_data(fd: RawFd, command: u8, value: &[u8]) -> i
         let mut data = i2c_smbus_data::from_block(value);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::I2cBlockBroken,
             data: &mut data,
         };
@@ -656,7 +652,7 @@ pub fn i2c_smbus_block_process_call(fd: RawFd, command: u8, write: &[u8], read: 
         let mut data = i2c_smbus_data::from_block(write);
         let mut ioctl = i2c_smbus_ioctl_data {
             read_write: SmbusReadWrite::Write,
-            command: command,
+            command,
             size: SmbusTransaction::BlockProcCall,
             data: &mut data,
         };
