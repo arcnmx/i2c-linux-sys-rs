@@ -6,13 +6,18 @@ authors = ["arcnmx"]
 description = "Linux i2c-dev ioctls"
 keywords = ["i2c", "i2c-dev", "i2cdev", "smbus"]
 
-documentation = "https://docs.rs/i2c-linux-sys/*/i2c_linux_sys"
+documentation = "https://docs.rs/i2c-linux-sys/latest/i2c_linux_sys"
 repository = "https://github.com/arcnmx/i2c-linux-sys-rs"
 readme = "README.md"
 license = "MIT"
 
+include = [
+	"/src/**.rs",
+	"/README*",
+	"/COPYING*",
+]
+
 [badges]
-travis-ci = { repository = "arcnmx/i2c-linux-sys-rs" }
 maintenance = { status = "passively-maintained" }
 
 [dependencies]
